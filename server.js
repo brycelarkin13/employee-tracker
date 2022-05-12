@@ -17,7 +17,7 @@ const db = mysql.createConnection(
 );
 
 
-function mainMenu() {
+mainMenu = () => {
   inquirer
     .prompt([
       {
@@ -52,7 +52,7 @@ function mainMenu() {
       })
 };
 
-function viewDepartments() {
+viewDepartments = () => {
       const sql = `SELECT * FROM department`;
        db.query(sql, (err, rows) => {
       if (err)
@@ -62,7 +62,7 @@ function viewDepartments() {
   });
 };
 
-function viewRole() {
+viewRole = () => {
   const sql = `SELECT * FROM role`;
   db.query(sql, (err, rows) => {
     if (err) throw err
@@ -71,7 +71,7 @@ function viewRole() {
   })
 };
 
-function viewEmployees() {
+viewEmployees = () => {
   const sql = `SELECT * FROM employees`;
   db.query(sql, (err, rows) => {
     if (err) throw err
@@ -85,17 +85,52 @@ addDepartment = () => {
     {
       type: 'input',
       name: 'depart_name',
-      message: 'What is the name of the department?'
-    }
-  ]).then(function(answer) {
+      message: 'What is the name of the department? (Required)',
+      validate: nameInput => {
+        if (nameInput) {
+          return true;
+        } else {
+          console.log('Enter the Department name!');
+          return false;
+        }
+      }
+    },
+  ]).then((answer) => {
     const sql = `INSERT INTO department (depart_name) VALUES (?)`;
     db.query(sql, answer.depart_name, (err, res) => {
-      if (err) throw err
+      if (err) throw err;
       console.log(`You have added a new department: ${(answer.depart_name)}`);
     })
     mainMenu();
   })
-  };
+};
+
+addRole = () => {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'title',
+      message: 'What is the title of the Role?',
+    },
+    {
+      type: 'input',
+      name: 'salary',
+      message: 'What is the salary of the role?',
+    },
+    {
+      type: 'input',
+      name: 'department_id',
+      message: 'What is the department ID number?'
+    }
+  ]).then((answer) => {
+    const sql = `INSERT INTO role (title, salary, department_id) VALUES (?,?,?)`;
+    db.query(sql, [answer.title, answer.salary, answer.department_id], (err, res) => {
+      if (err) throw err;
+      console.log(`You have added a new role: ${(answer.title)}`);
+    })
+    mainMenu();
+  })
+};
 
 
 mainMenu();
