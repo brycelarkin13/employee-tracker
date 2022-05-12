@@ -70,6 +70,15 @@ function viewRole() {
   })
 };
 
+function viewEmployees() {
+  const sql = `SELECT * FROM employees`;
+  db.query(sql, (err, rows) => {
+    if (err) throw err
+    console.table(rows);
+    mainMenu();
+  })
+};
+
 
 // addDepartment = () => {
 //   inquirer.prompt([
@@ -96,9 +105,7 @@ function viewRole() {
 
 
 //GET ALL DEPARTMENTS
-// app.get('/api/department', (req, res) => {
 //     const sql = `SELECT * FROM department`;
-
 //     db.query(sql, (err, rows) => {
 //         if (err) {
 //           res.status(500).json({ error: err.message });
