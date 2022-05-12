@@ -89,8 +89,9 @@ addDepartment = () => {
     }
   ]).then(function(answer) {
     const sql = `INSERT INTO department (depart_name) VALUES (?)`;
-    db.query(sql, answer.depart_name, function(err, res) {
-      console.log(`You have added: ${(answer.depart_name)}`)
+    db.query(sql, answer.depart_name, (err, res) => {
+      if (err) throw err
+      console.log(`You have added a new department: ${(answer.depart_name)}`);
     })
     mainMenu();
   })
