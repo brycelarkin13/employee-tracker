@@ -15,6 +15,9 @@
 
   ## Usage
   After all dependencies have been installed, run npm start in the command line. User will be guided by several prompts to add data to the employee database.
+ 
+ ![Untitled_ May 13, 2022 12_31 AM](https://user-images.githubusercontent.com/84687238/168218412-8b2dd516-ef1d-4a14-8e89-ed128e0e40b6.gif)
+
 
   ## License
   ![badmath](https://img.shields.io/npm/l/open)
