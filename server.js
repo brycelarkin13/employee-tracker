@@ -3,8 +3,10 @@ const inputCheck = require('./utils/inputCheck');
 
 //Connect to database
 const mysql = require('mysql2');
+// .env for credential storage
 require('dotenv').config();
 
+// databe connection
 const db = mysql.createConnection(
     {
       host: 'localhost',
@@ -16,7 +18,7 @@ const db = mysql.createConnection(
     }
 );
 
-
+// app interface user sees once logged in
 mainMenu = () => {
   inquirer
     .prompt([
@@ -52,6 +54,7 @@ mainMenu = () => {
       })
 };
 
+// view all departments
 viewDepartments = () => {
       const sql = `SELECT * FROM department`;
        db.query(sql, (err, rows) => {
@@ -62,6 +65,7 @@ viewDepartments = () => {
   });
 };
 
+// view all roles
 viewRole = () => {
   const sql = `SELECT * FROM role`;
   db.query(sql, (err, rows) => {
@@ -71,6 +75,7 @@ viewRole = () => {
   })
 };
 
+// view all employees
 viewEmployees = () => {
   const sql = `SELECT * FROM employees`;
   db.query(sql, (err, rows) => {
@@ -80,6 +85,7 @@ viewEmployees = () => {
   })
 };
 
+// add new department function
 addDepartment = () => {
   inquirer.prompt([
     {
@@ -105,6 +111,7 @@ addDepartment = () => {
   })
 };
 
+// add new role function
 addRole = () => {
   inquirer.prompt([
     {
@@ -132,6 +139,7 @@ addRole = () => {
   })
 };
 
+// add new employee function
 addEmployee = () => {
   inquirer.prompt([
     {
@@ -164,5 +172,5 @@ addEmployee = () => {
   })
 };
 
-
+// starts app
 mainMenu();
